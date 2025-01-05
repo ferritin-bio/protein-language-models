@@ -22,21 +22,13 @@ function parseMemorySize(str) {
 }
 
 export function hardware_plot(hardware, { width, height } = {}) {
-  // Debug: Check what hardware contains
-  console.log("Hardware data:", hardware);
-
-  // Ensure hardware is an array
-  const hardwareArray = Array.isArray(hardware)
-    ? hardware
-    : Array.from(hardware);
-
-  let data = hardwareArray
+  let data = hardware
     .map((d) => {
       const parsedDate = parseDate(d["Release Date"]);
       const parsedRam = parseMemorySize(d["Base RAM"]);
       return {
-        y: parsedDate,
-        x: parsedRam,
+        x: parsedDate,
+        y: parsedRam,
         model: d.Model,
       };
     })
@@ -51,13 +43,13 @@ export function hardware_plot(hardware, { width, height } = {}) {
   return Plot.plot({
     y: {
       grid: true,
-      label: "Release Date",
-      type: "time",
+      label: "RAM (GB)",
       nice: true,
     },
     x: {
       grid: true,
-      label: "RAM (GB)",
+      label: "Release Date",
+      type: "time",
       nice: true,
     },
     marks: [
@@ -73,55 +65,3 @@ export function hardware_plot(hardware, { width, height } = {}) {
     width: 800,
   });
 }
-
-// function munge_hardware(hardware) {
-//   let data = hardware
-//     .map((d) => {
-//       const parsedDate = parseDate(d["Release Date"]);
-//       const parsedRam = parseMemorySize(d["Base RAM"]);
-//       return {
-//         y: parsedDate,
-//         x: parsedRam,
-//         model: d.Model,
-//       };
-//     })
-//     .filter((d) => {
-//       const isValid = d.x != null && d.y != null;
-//       if (!isValid) {
-//         console.log("Filtered out entry:", d);
-//       }
-//       return isValid;
-//     });
-//   return data;
-// }
-
-// export function hardware_plot(hardware, { width, height } = {}) {
-//   console.log("Hardware data:", hardware);
-
-//   let data = munge_hardware(hardware);
-
-//   return Plot.plot({
-//     y: {
-//       grid: true,
-//       label: "Release Date",
-//       type: "time",
-//       nice: true,
-//     },
-//     x: {
-//       grid: true,
-//       label: "RAM (GB)",
-//       nice: true,
-//     },
-//     marks: [
-//       Plot.dot(data),
-//       Plot.text(data, {
-//         x: "x",
-//         y: "y",
-//         text: "model",
-//         dy: -8,
-//       }),
-//     ],
-//     height: 400,
-//     width: 800,
-//   });
-// }
