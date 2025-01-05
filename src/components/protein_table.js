@@ -119,7 +119,21 @@ export function protein_model_table(
 ) {
   let data = process_models(models);
   console.log(data);
-  return Inputs.table(data.map(processPublicationURL), {
+  return Inputs.table(data, {
+    columns: [
+      "Name",
+      "Publication",
+      "Publication_URL",
+      "SourceURL",
+      "WeightURL",
+      "TotalWeightsSize",
+      "Architecture",
+      "License",
+    ],
+    names: {
+      pubURL: "Publication_URL",
+      SourceURL: "SourceURL",
+    },
     format: {
       Publication_URL: (d) => d,
       SourceURL: (d) => d,
