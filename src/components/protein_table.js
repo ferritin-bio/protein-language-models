@@ -26,6 +26,7 @@ function processPublicationURL(row) {
 
   if (typeof row.Publication_URL !== "string") return row;
 
+  console.log(row.Publication_URL);
   let icon;
   if (row.Publication_URL.includes("pubmed")) {
     icon = html`<i class="ai ai-pubmed ai-2x"></i>`;
@@ -34,7 +35,7 @@ function processPublicationURL(row) {
   } else if (row.Publication_URL.includes("arxiv")) {
     icon = html`<i class="ai ai-arxiv ai-2x"></i>`;
   } else {
-    icon = html`<i class="fas fa-file-alt ai-2x"></i>`;
+    icon = html`<i class="fa fa-file"></i>`;
   }
 
   console.log(icon);
@@ -131,7 +132,8 @@ export function protein_model_table(
       "License",
     ],
     names: {
-      pubURL: "Publication_URL",
+      Publication_URL: "pubURL",
+      // pubURL: "Publication_URL",
       SourceURL: "SourceURL",
     },
     format: {
