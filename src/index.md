@@ -12,7 +12,7 @@ toc: true
 ## Protein Language Models
 
 ```js
-const plms = FileAttachment("./data/protein_language_models.tsv").csv();
+const plms = FileAttachment("./data/protein_language_models.tsv").tsv();
 import {protein_model_plot } from "./components/protein_models.js";
 import {protein_model_table } from "./components/protein_table.js";
 
