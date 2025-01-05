@@ -1,11 +1,12 @@
 import * as Plot from "npm:@observablehq/plot";
 import * as d3 from "npm:d3";
-
 const parseDate = d3.timeParse("%b %Y");
 
 function parseMemorySize(str) {
   if (!str) return null;
-  const match = str.match(/^(\d+)\s*(KB|MB|GB|TB|PB)?$/i);
+  if (str === "Same as ESM2") return 3; // Special case handling
+  if (str === "Available through repo") return null;
+  const match = str.match(/~?(\d+)\s*(KB|MB|GB|TB|PB)?$/i);
   if (!match) return null;
   const [, value, unit = "GB"] = match;
   const multipliers = {
@@ -18,15 +19,15 @@ function parseMemorySize(str) {
   return Number(value) * multipliers[unit.toUpperCase()];
 }
 
-export function hardware_plot(hardware, { width, height } = {}) {
-  let data = hardware
+function munge_protein_models(models) {
+  return models
     .map((d) => {
-      const parsedDate = parseDate(d["Release Date"]);
-      const parsedRam = parseMemorySize(d["Base RAM"]);
+      const parsedDate = parseDate(d.Publication_Date);
+      const parsedSize = parseMemorySize(d.TotalWeightsSize);
       return {
         x: parsedDate,
-        y: parsedRam,
-        model: d.Model,
+        y: parsedSize,
+        name: d.Name,
       };
     })
     .filter((d) => {
@@ -36,29 +37,34 @@ export function hardware_plot(hardware, { width, height } = {}) {
       }
       return isValid;
     });
+}
 
+export function protein_model_plot(models, { width = 800, height = 400 } = {}) {
+  let data = munge_protein_models(models);
   return Plot.plot({
-    y: {
-      grid: true,
-      label: "RAM (GB)",
-      nice: true,
-    },
     x: {
       grid: true,
-      label: "Release Date",
+      label: "Publication Date",
       type: "time",
       nice: true,
+      domain: [new Date("2020-01-01"), new Date("2024-12-31")],
+    },
+    y: {
+      grid: true,
+      label: "Model Size (GB)",
+      nice: true,
+      domain: [0, 4],
     },
     marks: [
       Plot.dot(data),
       Plot.text(data, {
         x: "x",
         y: "y",
-        text: "model",
+        text: "name",
         dy: -8,
       }),
     ],
-    height: 400,
-    width: 800,
+    height,
+    width,
   });
 }
