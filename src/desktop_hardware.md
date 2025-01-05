@@ -83,7 +83,7 @@ let p = Plot.plot({
   width: 800
 })
 
-p
+
 ```
 
 ```js
