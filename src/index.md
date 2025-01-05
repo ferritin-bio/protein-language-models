@@ -4,15 +4,15 @@ toc: true
 ---
 
  <!-- Todo: move this to a proper import -->
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 
 ## Protein Language Models
 
 ```js
-const plms = FileAttachment("./data/protein_language_models.csv").csv();
+const plms = FileAttachment("./data/protein_language_models.tsv").tsv();
 import {protein_model_plot } from "./components/protein_models.js";
 import {protein_model_table } from "./components/protein_table.js";
 
@@ -29,13 +29,6 @@ display(plmtable);
 
 ```
 
-
-```js
-import * as Academicons from "npm:academicons";
-const icon = html`<i class="ai ai-pubmed ai-2x"></i>`
-
-display(icon)
-```
 
 
 ## Desktop Hardware
