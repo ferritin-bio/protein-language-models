@@ -21,12 +21,19 @@ function parseMemorySize(str) {
   return Number(value) * multipliers[unit.toUpperCase()];
 }
 
-function munge_hardware(hardware) {
-  return hardware
+export function hardware_plot(hardware, { width, height } = {}) {
+  // Debug: Check what hardware contains
+  console.log("Hardware data:", hardware);
+
+  // Ensure hardware is an array
+  const hardwareArray = Array.isArray(hardware)
+    ? hardware
+    : Array.from(hardware);
+
+  let data = hardwareArray
     .map((d) => {
       const parsedDate = parseDate(d["Release Date"]);
       const parsedRam = parseMemorySize(d["Base RAM"]);
-
       return {
         y: parsedDate,
         x: parsedRam,
@@ -40,10 +47,6 @@ function munge_hardware(hardware) {
       }
       return isValid;
     });
-}
-
-export function hardware_plot(hardware, { width, height } = {}) {
-  let data = munge_hardware(hardware);
 
   return Plot.plot({
     y: {
@@ -70,3 +73,55 @@ export function hardware_plot(hardware, { width, height } = {}) {
     width: 800,
   });
 }
+
+// function munge_hardware(hardware) {
+//   let data = hardware
+//     .map((d) => {
+//       const parsedDate = parseDate(d["Release Date"]);
+//       const parsedRam = parseMemorySize(d["Base RAM"]);
+//       return {
+//         y: parsedDate,
+//         x: parsedRam,
+//         model: d.Model,
+//       };
+//     })
+//     .filter((d) => {
+//       const isValid = d.x != null && d.y != null;
+//       if (!isValid) {
+//         console.log("Filtered out entry:", d);
+//       }
+//       return isValid;
+//     });
+//   return data;
+// }
+
+// export function hardware_plot(hardware, { width, height } = {}) {
+//   console.log("Hardware data:", hardware);
+
+//   let data = munge_hardware(hardware);
+
+//   return Plot.plot({
+//     y: {
+//       grid: true,
+//       label: "Release Date",
+//       type: "time",
+//       nice: true,
+//     },
+//     x: {
+//       grid: true,
+//       label: "RAM (GB)",
+//       nice: true,
+//     },
+//     marks: [
+//       Plot.dot(data),
+//       Plot.text(data, {
+//         x: "x",
+//         y: "y",
+//         text: "model",
+//         dy: -8,
+//       }),
+//     ],
+//     height: 400,
+//     width: 800,
+//   });
+// }
