@@ -1,11 +1,11 @@
 ---
 title: Protein Language Models
-# theme: dashboard
 toc: true
 ---
 
 
-# Protein Languge Models
+
+## Protein Language Models
 
 ```js
 const plms = FileAttachment("./data/protein_language_models.csv").csv();
@@ -16,7 +16,9 @@ plms
 ```
 
 
-# Desktop hardware
+## Desktop Hardware
+
+This is highlighting the release year and basic specs of abailabel Desktop softare. At the moment focusing on the Mac M-series machines.
 
 ```js
 const hardware = FileAttachment("./data/desktop_hardware.csv").csv();
