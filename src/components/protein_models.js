@@ -1,23 +1,5 @@
 import * as Plot from "npm:@observablehq/plot";
-import * as d3 from "npm:d3";
-const parseDate = d3.timeParse("%b %Y");
-
-function parseMemorySize(str) {
-  if (!str) return null;
-  if (str === "Same as ESM2") return 3; // Special case handling
-  if (str === "Available through repo") return null;
-  const match = str.match(/~?(\d+)\s*(KB|MB|GB|TB|PB)?$/i);
-  if (!match) return null;
-  const [, value, unit = "GB"] = match;
-  const multipliers = {
-    KB: 1 / 1024 / 1024, // Convert to GB
-    MB: 1 / 1024, // Convert to GB
-    GB: 1, // Already in GB
-    TB: 1024, // Convert to GB
-    PB: 1024 * 1024, // Convert to GB
-  };
-  return Number(value) * multipliers[unit.toUpperCase()];
-}
+import { parseDate, parseMemorySize } from "./utiities.js";
 
 function munge_protein_models(models) {
   return models
