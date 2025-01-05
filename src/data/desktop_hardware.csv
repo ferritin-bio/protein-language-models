@@ -1,0 +1,12 @@
+Vendor,Model,Base RAM,Release Date,Max RAM,CPU Cores,GPU Cores,CPU Clock Speed (GHz),GPU Clock Speed (GHz)
+Apple,M1,8GB,Nov 2020,16GB,8 (4P+4E),7/8,3.2(P)/2.0(E),1.278
+Apple,M1 Pro,16GB,Oct 2021,32GB,8/10 (6/8P+2E),14/16,3.23(P)/2.0(E),1.296
+Apple,M1 Max,32GB,Oct 2021,64GB,10 (8P+2E),24/32,3.23(P)/2.0(E),1.296
+Apple,M1 Ultra,64GB,Mar 2022,128GB,20 (16P+4E),48/64,3.23(P)/2.0(E),1.296
+Apple,M2,8GB,Jun 2022,24GB,8 (4P+4E),8/10,3.49(P)/2.4(E),1.398
+Apple,M2 Pro,16GB,Jan 2023,32GB,10/12 (6/8P+4E),16/19,3.48(P)/2.4(E),1.398
+Apple,M2 Max,32GB,Jan 2023,96GB,12 (8P+4E),30/38,3.68(P)/2.4(E),1.398
+Apple,M2 Ultra,64GB,Jun 2023,192GB,24 (16P+8E),60/76,3.68(P)/2.4(E),1.398
+Apple,M3,8GB,Oct 2023,24GB,8 (4P+4E),10,4.05(P)/2.7(E),1.5
+Apple,M3 Pro,18GB,Oct 2023,36GB,12 (6P+6E),18,4.05(P)/2.7(E),1.5
+Apple,M3 Max,36GB,Oct 2023,128GB,16 (12P+4E),40,4.05(P)/2.7(E),1.5
