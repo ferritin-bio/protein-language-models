@@ -61,11 +61,13 @@ export function protein_model_plot(models, { width = 800, height = 400 } = {}) {
       label: "Publication Date",
       type: "time",
       nice: true,
+      domain: [new Date("2020-01-01"), new Date("2024-12-31")],
     },
     y: {
       grid: true,
       label: "Model Size (GB)",
       nice: true,
+      domain: [0, 4],
     },
     marks: [
       Plot.dot(data),
