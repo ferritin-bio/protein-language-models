@@ -5,10 +5,8 @@ const parseDate = d3.timeParse("%b %Y");
 
 function parseMemorySize(str) {
   if (!str) return null;
-
   const match = str.match(/^(\d+)\s*(KB|MB|GB|TB|PB)?$/i);
   if (!match) return null;
-
   const [, value, unit = "GB"] = match;
   const multipliers = {
     KB: 1 / 1024 / 1024, // Convert to GB
@@ -17,7 +15,6 @@ function parseMemorySize(str) {
     TB: 1024, // Convert to GB
     PB: 1024 * 1024, // Convert to GB
   };
-
   return Number(value) * multipliers[unit.toUpperCase()];
 }
 
