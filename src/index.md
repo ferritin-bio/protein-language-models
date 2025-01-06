@@ -3,7 +3,7 @@ title: Protein Language Models
 toc: true
 ---
 
-Data for these charts can be  found at this [gSheet](https://docs.google.com/spreadsheets/d/1iJ7bPG81_yYITVQn-huoQonKTel7GBQ7AMM9AixQbH8/edit?gid=1996577388#gid=1996577388). Source code for the graphs are [here](https://github.com/ferritin-bio/protein-language-models)
+
 
  <!-- Todo: move this to a proper import -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -11,9 +11,16 @@ Data for these charts can be  found at this [gSheet](https://docs.google.com/spr
 </head>
 
 
-## Protein Language Models
+## Into to Local-First Protein Language Models
 
-The fields of deep learning and protein design are going through a rapid phase of discovery.
+- There has been a proliferation of really powerful AI models to assist in scientific discovery.
+- We have seen a shrinking of the commercial LLMs where [LLAMA 3.3](https://ollama.com/library/llama3.3) can now be run on a machine with 548GB of RAM.
+- Some of the powerful ML models like ProteinMPNN and Ligand MPNN are only ~20MB!!!
+- At the same time we've gotten really powerful desktop harward that increasingly can handle ML models locally via GPUs or CPU acceleration. Apples Metal framework seems to be expesially good.
+- Can we develop local machine learning tools that can acccelerate scientists in their effort to use these tools.
+- That was the idea behind [ferritin-bio](https://ferritin-bio.github.io/ferritin/) - port common ML models to compile and run locally.
+
+
 
 
 ### Model Size by Release Date
@@ -65,3 +72,7 @@ import {hardware_plot} from "./components/hardware.js";
 let hplot = hardware_plot(hardware);
 display(hplot)
 ```
+
+</br>
+
+Data for these charts can be  found at this [gSheet](https://docs.google.com/spreadsheets/d/1iJ7bPG81_yYITVQn-huoQonKTel7GBQ7AMM9AixQbH8/edit?gid=1996577388#gid=1996577388). Source code for the graphs are [here](https://github.com/ferritin-bio/protein-language-models)
