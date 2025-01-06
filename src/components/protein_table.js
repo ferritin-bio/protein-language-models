@@ -1,14 +1,8 @@
 //
-
 import * as Inputs from "npm:@observablehq/inputs";
-import * as Plot from "npm:@observablehq/plot";
-import * as d3 from "npm:d3";
 import { html } from "npm:htl";
-import { parseDate, parseMemorySize } from "./utiities.js";
-// import * as Academicons from "npm:academicons";
-// import * as FontAwesome from "npm:font-awesome-icons";
+// import { hf_icon } from "./utilities.js";
 
-// Process individual fields
 function processName(row) {
   return row;
 }
@@ -92,6 +86,60 @@ function processLicense(row) {
 }
 
 function processHuggingFace(row) {
+  if (!row.HuggingFace) return row;
+
+  if (typeof row.HuggingFace !== "string") return row;
+
+  let icon;
+  if (row.HuggingFace.includes("/")) {
+    row.HuggingFace = html`<a
+      href="https://huggingface.co/${row.HuggingFace}"
+      target="_blank"
+      >${row.HuggingFace}</a
+    >`;
+  }
+
+  return row;
+}
+
+function processLinks(row) {
+  let links = [];
+
+  // Process Publication URL
+  if (row.Publication_URL && typeof row.Publication_URL === "string") {
+    let icon;
+    if (row.Publication_URL.includes("pubmed")) {
+      icon = html`<i class="ai ai-pubmed ai-2x"></i>`;
+    } else if (row.Publication_URL.includes("biorxiv")) {
+      icon = html`<i class="ai ai-biorxiv ai-2x"></i>`;
+    } else if (row.Publication_URL.includes("arxiv")) {
+      icon = html`<i class="ai ai-arxiv ai-2x"></i>`;
+    } else {
+      icon = html`<i class="fa fa-file"></i>`;
+    }
+    links.push(
+      html`<a href="${row.Publication_URL}" target="_blank">${icon}</a>`,
+    );
+  }
+
+  // Process Source URL
+  if (row.SourceURL && typeof row.SourceURL === "string") {
+    let icon;
+    if (row.SourceURL.includes("github")) {
+      icon = html`<i class="fa fa-github fa-2x"></i>`;
+    } else if (row.SourceURL.includes("gitlab")) {
+      icon = html`<i class="fa fa-gitlab fa-2x"></i>`;
+    } else {
+      icon = html`<i class="fa fa-code fa-2x"></i>`;
+    }
+    links.push(html`<a href="${row.SourceURL}" target="_blank">${icon}</a>`);
+  }
+
+  // Combine links with spacing
+  row.Links = html`<div style="display: flex; gap: 10px; align-items: center;">
+    ${links}
+  </div>`;
+
   return row;
 }
 
@@ -101,16 +149,17 @@ function process_models(data) {
     data
       // .map((row) => processName(row))
       .map((row) => processPublication(row))
-      .map((row) => processPublicationURL(row))
+      // .map((row) => processPublicationURL(row))
       // .map((row) => processPublicationDate(row))
       // .map((row) => processVersion(row))
-      .map((row) => processSourceURL(row))
-    // .map((row) => processWeightURL(row))
-    // .map((row) => processTotalWeightsSize(row))
-    // .map((row) => processArchitecture(row))
-    // .map((row) => processTrainingDataSize(row))
-    // .map((row) => processLicense(row))
-    // .map((row) => processHuggingFace(row))
+      // .map((row) => processSourceURL(row))
+      // .map((row) => processWeightURL(row))
+      // .map((row) => processTotalWeightsSize(row))
+      // .map((row) => processArchitecture(row))
+      // .map((row) => processTrainingDataSize(row))
+      // .map((row) => processLicense(row))
+      .map((row) => processHuggingFace(row))
+      .map((row) => processLinks(row))
   );
 }
 
@@ -121,15 +170,18 @@ export function protein_model_table(
   let data = process_models(models);
   console.log(data);
   return Inputs.table(data, {
+    rows: 25,
     columns: [
       "Name",
       "Publication",
-      "Publication_URL",
-      "SourceURL",
-      "WeightURL",
+      // "Publication_URL",
+      // "SourceURL",
+      // "WeightURL",
       "TotalWeightsSize",
       "Architecture",
       "License",
+      "Links",
+      "HuggingFace",
     ],
     names: {
       Publication_URL: "pubURL",
@@ -139,6 +191,8 @@ export function protein_model_table(
     format: {
       Publication_URL: (d) => d,
       SourceURL: (d) => d,
+      Links: (d) => d,
+      HuggingFace: (d) => d,
     },
   });
 }

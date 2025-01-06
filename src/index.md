@@ -33,7 +33,7 @@ display(plmtable);
 
 ## Desktop Hardware
 
-This is highlighting the release year and basic specs of available Desktop softare. At the moment focusing on the Mac M-series machines. This is related
+This is highlighting the release year and basic specs of available Desktop hardware. At the moment focusing on the Mac M-series machines. This is related
 to a broader interest in making machine learning models that can be used locally.
 
 ```js
