@@ -25,12 +25,14 @@ export function hardware_plot(hardware, { width, height } = {}) {
       grid: true,
       label: "RAM (GB)",
       nice: true,
+      domain: [0, 140],
     },
     x: {
       grid: true,
       label: "Release Date",
       type: "time",
       nice: true,
+      domain: [new Date("2020-01-01"), new Date("2025-01-01")],
     },
     marks: [
       Plot.dot(data),
