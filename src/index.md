@@ -29,6 +29,8 @@ let plmplot = protein_model_plot(plms);
 display(plmplot)
 ```
 
+</br>
+
 ### Protein Language Model Table
 
 ```js
@@ -38,6 +40,7 @@ display(plmtable);
 ```
 
 
+</br>
 
 ## Desktop Hardware
 
@@ -45,6 +48,7 @@ This is highlighting the release year and basic specs of available Desktop hardw
 to a broader interest in making machine learning models that can be used locally.
 
 
+</br>
 
 ### Hardware Table
 

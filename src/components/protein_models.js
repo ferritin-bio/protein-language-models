@@ -43,7 +43,15 @@ export function protein_model_plot(
       domain: [0, 10],
     },
     marks: [
-      Plot.dot(data),
+      Plot.dot(data, {
+        r: 5,
+        x: "x",
+        y: "y",
+        name: "Name",
+        fill: "red",
+        tip: true,
+        title: (d) => `Model: ${d.name}`,
+      }),
       Plot.text(data, {
         x: "x",
         y: "y",
