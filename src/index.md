@@ -3,6 +3,8 @@ title: Protein Language Models
 toc: true
 ---
 
+Data is found at this [gSheet](https://docs.google.com/spreadsheets/d/1iJ7bPG81_yYITVQn-huoQonKTel7GBQ7AMM9AixQbH8/edit?gid=1996577388#gid=1996577388)
+
  <!-- Todo: move this to a proper import -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,7 +39,7 @@ This is highlighting the release year and basic specs of available Desktop hardw
 to a broader interest in making machine learning models that can be used locally.
 
 ```js
-const hardware = FileAttachment("./data/desktop_hardware.csv").csv();
+const hardware = FileAttachment("./data/desktop_hardware.tsv").tsv();
 import {hardware_plot} from "./components/hardware.js";
 ```
 
