@@ -39,7 +39,7 @@ This is highlighting the release year and basic specs of available Desktop hardw
 to a broader interest in making machine learning models that can be used locally.
 
 ```js
-const hardware = FileAttachment("./data/desktop_hardware.csv").csv();
+const hardware = FileAttachment("./data/desktop_hardware.tsv").tsv();
 import {hardware_plot} from "./components/hardware.js";
 ```
 
