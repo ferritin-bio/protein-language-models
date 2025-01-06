@@ -19,14 +19,18 @@ The fields of deep learning and protein design are going through a rapid phase o
 ### Date by Size
 ```js
 const plms = FileAttachment("./data/protein_language_models.tsv").tsv();
-import {protein_model_plot } from "./components/protein_models.js";
+// import {protein_model_plot } from "./components/protein_models.js";
+import {createProteinModelPlot } from "./components/protein_models.js";
 import {protein_model_table } from "./components/protein_table.js";
-
 ```
 
+
+
+<div id="plm-plot-01"></div>
+
 ```js
-let plmplot = protein_model_plot(plms);
-display(plmplot)
+const container = document.getElementById('plm-plot-01');
+let plmplot = createProteinModelPlot(plms, container);
 ```
 
 </br>

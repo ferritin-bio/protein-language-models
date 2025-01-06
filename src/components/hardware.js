@@ -1,5 +1,8 @@
 import * as Plot from "npm:@observablehq/plot";
 import { parseDate, parseMemorySize } from "./utiities.js";
+import * as d3 from "npm:d3";
+
+// export const parseDate = d3.timeParse("%m %Y");
 
 export function hardware_plot(hardware, { width, height } = {}) {
   let data = hardware
