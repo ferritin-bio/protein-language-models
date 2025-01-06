@@ -1,21 +1,21 @@
 import { svg } from "npm:htl";
 import * as d3 from "npm:d3";
 
-export const parseDate = d3.timeParse("%b %Y");
+export const parseDate = d3.timeParse("%m/%d/%Y");
 
 export function parseMemorySize(str) {
   if (!str) return null;
-  if (str === "Same as ESM2") return 3; // Special case handling
+  if (str === "Same as ESM2") return 3;
   if (str === "Available through repo") return null;
   const match = str.match(/~?(\d+)\s*(KB|MB|GB|TB|PB)?$/i);
   if (!match) return null;
   const [, value, unit = "GB"] = match;
   const multipliers = {
-    KB: 1 / 1024 / 1024, // Convert to GB
-    MB: 1 / 1024, // Convert to GB
-    GB: 1, // Already in GB
-    TB: 1024, // Convert to GB
-    PB: 1024 * 1024, // Convert to GB
+    KB: 1 / 1024 / 1024,
+    MB: 1 / 1024,
+    GB: 1,
+    TB: 1024,
+    PB: 1024 * 1024,
   };
   return Number(value) * multipliers[unit.toUpperCase()];
 }
@@ -24,7 +24,7 @@ export function munge_protein_models(models) {
   return models
     .map((d) => {
       const parsedDate = parseDate(d.Publication_Date);
-      const parsedSize = parseMemorySize(d.TotalWeightsSize);
+      const parsedSize = parseMemorySize(d.ModelSize);
       return {
         x: parsedDate,
         y: parsedSize,

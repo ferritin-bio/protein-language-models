@@ -44,6 +44,6 @@ export function hardware_plot(hardware, { width, height } = {}) {
       }),
     ],
     height: 400,
-    width: 800,
+    width: 1200,
   });
 }

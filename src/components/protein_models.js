@@ -5,7 +5,7 @@ function munge_protein_models(models) {
   return models
     .map((d) => {
       const parsedDate = parseDate(d.Publication_Date);
-      const parsedSize = parseMemorySize(d.TotalWeightsSize);
+      const parsedSize = parseMemorySize(d.ModelSize);
       return {
         x: parsedDate,
         y: parsedSize,
@@ -21,21 +21,26 @@ function munge_protein_models(models) {
     });
 }
 
-export function protein_model_plot(models, { width = 800, height = 400 } = {}) {
+export function protein_model_plot(
+  models,
+  { width = 1200, height = 400 } = {},
+) {
   let data = munge_protein_models(models);
   return Plot.plot({
+    aspectRatio: false,
+    margin: 40,
     x: {
       grid: true,
       label: "Publication Date",
       type: "time",
       nice: true,
-      domain: [new Date("2020-01-01"), new Date("2024-12-31")],
+      domain: [new Date("2021-01-01"), new Date("2025-12-31")],
     },
     y: {
       grid: true,
       label: "Model Size (GB)",
       nice: true,
-      domain: [0, 4],
+      domain: [0, 10],
     },
     marks: [
       Plot.dot(data),
