@@ -16,7 +16,7 @@ Data for these charts can be  found at this [gSheet](https://docs.google.com/spr
 The fields of deep learning and protein design are going through a rapid phase of discovery.
 
 
-### Date by Size
+### Model Size by Release Date
 ```js
 const plms = FileAttachment("./data/protein_language_models.tsv").tsv();
 // import {protein_model_plot } from "./components/protein_models.js";

@@ -24,6 +24,7 @@ export function hardware_plot(hardware, { width, height } = {}) {
     });
 
   return Plot.plot({
+    margin: 50,
     y: {
       grid: true,
       label: "RAM (GB)",
@@ -35,6 +36,7 @@ export function hardware_plot(hardware, { width, height } = {}) {
       label: "Release Date",
       type: "time",
       nice: true,
+      labelOffset: 40,
       domain: [new Date("2020-01-01"), new Date("2025-01-01")],
     },
     marks: [
@@ -43,7 +45,6 @@ export function hardware_plot(hardware, { width, height } = {}) {
         x: "x",
         y: "y",
         text: "model",
-        dy: -8,
       }),
     ],
     height: 400,
