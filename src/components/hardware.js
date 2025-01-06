@@ -1,5 +1,8 @@
 import * as Plot from "npm:@observablehq/plot";
 import { parseDate, parseMemorySize } from "./utiities.js";
+import * as d3 from "npm:d3";
+
+// export const parseDate = d3.timeParse("%m %Y");
 
 export function hardware_plot(hardware, { width, height } = {}) {
   let data = hardware
@@ -21,6 +24,7 @@ export function hardware_plot(hardware, { width, height } = {}) {
     });
 
   return Plot.plot({
+    margin: 50,
     y: {
       grid: true,
       label: "RAM (GB)",
@@ -32,6 +36,7 @@ export function hardware_plot(hardware, { width, height } = {}) {
       label: "Release Date",
       type: "time",
       nice: true,
+      labelOffset: 40,
       domain: [new Date("2020-01-01"), new Date("2025-01-01")],
     },
     marks: [
@@ -40,10 +45,9 @@ export function hardware_plot(hardware, { width, height } = {}) {
         x: "x",
         y: "y",
         text: "model",
-        dy: -8,
       }),
     ],
     height: 400,
-    width: 800,
+    width: 1200,
   });
 }
