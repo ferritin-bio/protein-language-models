@@ -1,4 +1,5 @@
 import * as Plot from "npm:@observablehq/plot";
+import * as d3 from "npm:d3";
 import { parseDate, parseMemorySize } from "./utiities.js";
 
 function munge_protein_models(models) {
@@ -21,34 +22,39 @@ function munge_protein_models(models) {
     });
 }
 
-let isLogScale = false;
-
-function toggleScale() {
-  isLogScale = !isLogScale;
-  const plot = protein_model_plot(models, { isLogScale });
-  document.getElementById("plot-container").innerHTML = "";
-  document.getElementById("plot-container").appendChild(plot);
+function formatTooltip(d) {
+  return `Model: ${d.name}
+Size in GB: ${d.y}`;
 }
 
 export function createProteinModelPlot(models, container) {
-  let isLogScale = false;
+  let isLogScale = true; // Default to log scale
+  let showLabels = false; // Default to showing labels
 
-  // Create toggle button
-  const button = document.createElement("button");
-  button.textContent = "Toggle Log/Linear Scale";
-  button.style.marginBottom = "10px";
+  // Create button container for better layout
+  const buttonContainer = document.createElement("div");
+  buttonContainer.style.marginBottom = "10px";
 
-  // Create plot container
+  // Scale toggle button
+  const scaleButton = document.createElement("button");
+  scaleButton.textContent = "Toggle Log/Linear Scale";
+  scaleButton.style.marginRight = "10px";
+
+  // Label toggle button
+  const labelButton = document.createElement("button");
+  labelButton.textContent = "Toggle Labels";
+
+  // Add buttons to container
+  buttonContainer.appendChild(scaleButton);
+  buttonContainer.appendChild(labelButton);
+
   const plotDiv = document.createElement("div");
-
-  // Add elements to container
-  container.appendChild(button);
+  container.appendChild(buttonContainer);
   container.appendChild(plotDiv);
 
   function updatePlot() {
     const data = munge_protein_models(models);
 
-    // Configure y-axis based on scale type
     const yAxis = {
       grid: true,
       label: "Model Size (GB)",
@@ -63,6 +69,32 @@ export function createProteinModelPlot(models, container) {
       yAxis.domain = [0, Math.max(...data.map((d) => d.y))];
     }
 
+    const marks = [
+      // Points are always shown
+      Plot.dot(data, {
+        r: 4,
+        x: "x",
+        y: "y",
+        fill: "red",
+        tip: true,
+        title: formatTooltip,
+      }),
+    ];
+
+    // Only add labels if showLabels is true
+    if (showLabels) {
+      marks.push(
+        Plot.text(data, {
+          x: "x",
+          y: "y",
+          text: "name",
+          fontSize: 12,
+          fill: "black",
+          dy: -10,
+        }),
+      );
+    }
+
     const plot = Plot.plot({
       aspectRatio: false,
       margin: 40,
@@ -74,35 +106,23 @@ export function createProteinModelPlot(models, container) {
         domain: [new Date("2021-01-01"), new Date("2025-12-31")],
       },
       y: yAxis,
-      marks: [
-        Plot.dot(data, {
-          r: 5,
-          x: "x",
-          y: "y",
-          name: "Name",
-          fill: "red",
-          tip: true,
-          title: (d) => `Model: ${d.name}`,
-        }),
-        Plot.text(data, {
-          x: "x",
-          y: "y",
-          text: "name",
-          dy: -8,
-        }),
-      ],
+      marks: marks,
       height: 400,
       width: 1200,
     });
 
-    // Clear and update plot
     plotDiv.innerHTML = "";
     plotDiv.appendChild(plot);
   }
 
-  // Add click handler to button
-  button.addEventListener("click", () => {
+  // Add click handlers to buttons
+  scaleButton.addEventListener("click", () => {
     isLogScale = !isLogScale;
+    updatePlot();
+  });
+
+  labelButton.addEventListener("click", () => {
+    showLabels = !showLabels;
     updatePlot();
   });
 
